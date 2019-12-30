@@ -1,0 +1,43 @@
+{% extends 'base.html'%} <!--extends 우선순위가 가장 높음 -->
+
+{% block contents %}
+
+<div class="jumbotron">
+    <div class="container">
+      <h1>애주가들을 위한 웹사이트, 애주타임</h1>
+      <p>술자리 캘린더, 지난 술자리 기록, 애주가들만의 커뮤니티를 이용해보세요!</p>
+
+    </div>
+  </div>
+
+
+
+  <body>
+    <form method="POST" action="{% url 'login'%}">
+      {% csrf_token %}
+      <div class="container">
+        <div class="container">
+
+          <form class="form-signin">
+            <h2 class="form-signin-heading">LOGIN FOR USE</h2>
+
+            <label for="ID" class="sr-only">Id</label>
+
+            <input name="username" type="text" class="form-control" placeholder="Id" required autofocus>
+            <label for="inputPassword" class="sr-only">Password</label>
+            
+            <input name="password" type="password" class="form-control" placeholder="Password" required>
+
+            <input class="btn btn-lg btn-success btn-block" type="submit" value="Login">
+            <a href="{% url 'signup'%}"><button type="button"
+                class="btn btn-lg btn-success btn-block">SignUp</button></a>
+          </form>
+
+        </div> <!-- /container -->
+      </div>
+    </form>
+
+
+
+  </body>
+{% endblock %}

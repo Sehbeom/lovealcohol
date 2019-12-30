@@ -1,0 +1,115 @@
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+
+  <!--<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
+  
+  
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-md navbar-dark bg-success">
+      <div style="display:left; width:250px;"></div>
+    <a class="navbar-brand" href="{% url 'home' %}">애주타임</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- if 문 -->
+    {% if user.is_authenticated %}
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+
+        <li class="nav-item active">
+          <a class="nav-link" href="/calendar">My calendar</a>
+        </li>
+
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'home' %}">Our story <span class="sr-only">(current)</span></a>
+        </li>
+
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'myhome' %}">My story</a>
+        </li>
+
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'blogpost' %}">Make story</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'posthome' %}">Community</a>
+        </li>
+      </ul>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" float="right">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href=""> 환영합니다! '{{ user.profile.nickname }}' 님</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+        </li>
+      </ul>
+    </div>
+    {% endif %}
+  </nav>
+
+
+
+  {% if user.is_authenticated %}
+  <!-- 이 아래에 컨텐츠가 담길 거에요, 겹치는 내용이 아닌 템플릿 각자의 컨텐츠,-->
+  {% block contents %}
+  <!--block title,sidebar 등등 -->
+  {% endblock %}
+
+  {% else %}
+
+  <div class="jumbotron">
+    <div class="container">
+      <h1>애주가들을 위한 웹사이트, 애주타임</h1>
+      <p>술자리 캘린더, 지난 술자리 기록, 애주가들만의 커뮤니티를 이용해보세요!</p>
+    </div>
+  </div>
+
+
+
+  <body>
+    <form method="POST" action="{% url 'login'%}">
+      {% csrf_token %}
+      <div class="container">
+        <div class="container">
+
+          <form class="form-signin">
+            <h2 class="form-signin-heading">LOGIN FOR USE</h2>
+            <label for="ID" class="sr-only">Id</label>
+            <input name="username" type="text" class="form-control" placeholder="Id" required autofocus>
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input name="password" type="password" class="form-control" placeholder="Password" required>
+
+            <input class="btn btn-lg btn-success" type="submit" value="Login">
+            <a href="{% url 'signup'%}">
+              <button type="button"class="btn btn-lg btn-success">SignUp</button>
+            </a>
+          </form>
+
+        </div> <!-- /container -->
+      </div>
+    </form>
+
+
+
+  </body>
+
+  {% endif %}
+
+  <!-- else if "로그인을 해주세요!-->
+</body>

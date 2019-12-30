@@ -1,0 +1,51 @@
+{% extends 'base.html'%}
+<!--extends 우선순위가 가장 높음 -->
+
+<body>
+  {% block contents %}
+
+  {% for blog in posts %}
+  <!-- blogs.all 이 아닌, -->
+  {% if user.username == blog.username %}
+  <div class="container">
+    <br>
+    <div class="card">
+        <div class="card-body">
+          <h2 class="card-title">{{blog.title}}</h2>
+          <h6 class="card-subtitle mb-2 text-muted">작성자 : {{blog.nickname}}</h6>
+          <h6 class="card-subtitle mb-2 text-muted"> 날짜 : {{blog.pub_data}}</h6>
+          {% if blog.image %}
+          <img src="{{blog.image.url}}" height = 200>
+          {% endif %}
+          <p class="card-text">{{blog.summary}}</p>
+          <a href="{% url 'detail' blog.id %}" class="card-link">...more</a>
+          <p><a class="btn btn-success" href="{% url 'edit' blog.id %}" role="button">수정 &raquo;</a>
+            <a class="btn btn-success" href="{% url 'delete' blog.id %}" role="button">삭제 &raquo;</a></p>
+        </div>
+      </div>
+</div>
+{% endif %}    
+{% endfor %}
+
+
+  <div class="container">
+      {% if posts.has_previous %}
+      <span class="cm_prev">
+          <a href="?page={{posts.previous_page_number}}"><img src="https://ssl.nx.com/s2/game/maplestory/renewal/common/cm_prev.png" alt="이전" /></a>
+      </span>
+      {% endif %}
+  
+      <span>{{posts.number}}</span> <!-- 현재 보고 있는 페이지번호 출력-->
+      <span>of</span>
+      <span>{{posts.paginator.num_pages}}</span>
+  
+  
+      {% if posts.has_next %}
+      <span class="cm_next">
+        <a href="?page={{posts.next_page_number}}"><img src="https://ssl.nx.com/s2/game/maplestory/renewal/common/cm_next.png"
+            alt="다음" /></a>
+      </span>
+      {% endif %}
+  </div>
+  {% endblock %}
+</body>

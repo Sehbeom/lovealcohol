@@ -1,0 +1,98 @@
+{% extends 'base.html'%}
+
+{% block contents %}
+<!doctype html>
+<html lang="ko">
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Community</title>
+  <link rel="stylesheet" href="https://ssl.nx.com/s3/Game/Maplestory/sub_new.css" type="text/css" />
+  <link rel="stylesheet" href="https://ssl.nx.com/s3/Game/Maplestory/jquery.mCustomScrollbar.css" type="text/css" />
+
+  <script src="https://ssl.nx.com/s1/Game/Maplestory/jquery-1.12.4.min.js" type="text/javascript"></script>
+  <script src="https://ssl.nx.com/s1/Game/Maplestory/jquery-ui.js"></script>
+  <script src="https://ssl.nx.com/s1/Game/Maplestory/sub_new.js" type="text/javascript"></script>
+  <script src="https://ssl.nx.com/s1/Game/Maplestory/jquery.mCustomScrollbar.concat.min.js"
+    type="text/javascript"></script>
+
+  <script src="/Scripts/Common/common.js?v=201908101256"></script>
+  <script src="/Scripts/Common/webboard.js"></script>
+
+
+</head>
+
+<body>
+  <div id="wrap">
+
+    <div class="mnb_blank"></div>
+
+    <!-- container str -->
+    <div id="container">
+      <!-- div_inner str -->
+      <div class="div_inner">
+        <!-- notice_wrap str -->
+        <div class="contents_wrap">
+          <div class="notice">
+            <ul>
+              {% for pos in blogs %}
+              <li>
+                <p class="list_title">
+                  <a href="/board/show/{{ pos.id }}" style="color:rgb(51, 51, 51);">
+                    <span class="title">{{pos.title}}</span>
+                  </a>
+                </p>
+                <div class="board_other_info">
+                  <span class="user_name">{{pos.nickname}}</span>
+                  <ul>
+                    <li class="date_cnt">{{pos.created_at}}</li>
+                  </ul>
+                </div>
+              </li>
+              {% endfor %}
+
+            </ul>
+
+            <button type="button" class="btn btn-success"><a style="color:white" href="/board/new">글작성</a></button>
+            <div class="page_numb">
+              
+              {% if blogs.has_previous %}
+              <span class="cm_prev">
+                  <a href="?page={{blogs.previous_page_number}}"><img src="https://ssl.nx.com/s2/game/maplestory/renewal/common/cm_prev.png" alt="이전" /></a>
+              </span>
+              {% endif %}
+
+              <sapn>{{blogs.number}}</sapn> <!-- 현재 보고 있는 페이지번호 출력-->
+              <span>of</span>
+              <span>{{blogs.paginator.num_pages}}</span>
+
+
+              {% if blogs.has_next %}
+              <span class="cm_next">
+                <a href="?page={{blogs.next_page_number}}"><img src="https://ssl.nx.com/s2/game/maplestory/renewal/common/cm_next.png"
+                    alt="다음" /></a>
+              </span>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <!-- notice_wrap end -->
+        <div class="right_aside_new">
+
+
+
+
+
+        </div>
+      </div>
+      <!-- div_inner end -->
+    </div>
+    <!-- container end -->
+  </div>
+
+</body>
+
+</html>
+
+{% endblock %}
